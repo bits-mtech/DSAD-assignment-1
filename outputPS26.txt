@@ -1,18 +1,12 @@
 Successfully inserted 5 applications into the system. 
-Updated details of Deepak Prasad. Phone Number,Application Status has been changed. 
----------- Member reference by  11129
- ---------- 
- ---------- Application Status ---------- 
-Successfully inserted 5 applications into the system. 
 Updated details of Deepak Prasad. Application Status has been changed. 
----------- Member reference by  11129
- ---------- 
- ---------- Application Status ---------- 
+---------- Member reference by  11129 ---------- 
+Vinay Shah / 9912356788 / Approved
+Sandhya Raman / 9213231311 / Verified
+------------------------------------- 
+---------- Application Status ---------- 
+Applied: 3 
+Approved: 1 
+Verified: 1 
+------------------------------------- 
 Successfully inserted 5 applications into the system. 
-Updated details of Deepak Prasad. Application Status has been changed. 
----------- Member reference by  11129
- ---------- 
-  
- ----------------------------------------------- Application Status ---------- 
-  
- -------------------------------------
