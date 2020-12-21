@@ -1,9 +1,10 @@
-# This is a sample Python script.
+class ClubApplicant(object):
+    def __init__(self):
+        self.clubapplicant = [[] for _ in range(4)]
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-def hashing_func(key):
-    return key % len(ApplicationRecords)
+def hashing_func(name):
+    #return hash(key)
+    return hash(name) % len(ApplicationRecords)
 
 def initializeHash():
     '''
@@ -11,13 +12,42 @@ def initializeHash():
     :param self:
     :return: [None]
     '''
-    return None
+    return [[] for _ in range(4)]
 
 def insertAppDetails(ApplicationRecords, name, phone, memRef, status):
-    print(f"Input Argument are name {name}, phone {phone}, member reference number {memRef}, status {status}")
+    hash_key = hashing_func(name)
+    key_exists = False
+    bucket = ApplicationRecords[hash_key]
+    for i, kv in enumerate(bucket):
+        if name == kv[0]:
+            key_exists = True
+            break
+    if key_exists:
+        print(len(bucket[i]))
+        bucket[i] = (name, phone, memRef, status)
+    else:
+        bucket.append((name, phone, memRef, status))
+
+    return f"Input Argument are name {name}, phone {phone}, member reference number {memRef}, status {status}"
 
 def updateAppDetails(ApplicationRecords, name, phone, memRef, status):
+    hash_key = hashing_func(name)
+    bucket = ApplicationRecords[hash_key]
+    key_exists = False
+    for i, kv in enumerate(bucket):
+        if name == kv[0]:
+            key_exists = True
+            break
+    if key_exists:
+        if len(bucket[i])>0:
+            for j,kv in enumerate(bucket[i]):
+                if name == kv[0]:
+                    print(j)
+        else:
+            bucket[i] = (name, phone, memRef, status)
+
     print("Updated the App details")
+
 
 def memRef(ApplicationRecords, memID):
     print("")
@@ -28,10 +58,31 @@ def appStatus(ApplicationRecords):
 def destroyHash(ApplicationRecords):
     print("Destroys the Hashtable. A cleanup information")
 
+def search(ApplicationRecords, name):
+    hash_key = hashing_func(name)
+    bucket = ApplicationRecords[hash_key]
+    print(bucket)
+    for i, kv in enumerate(bucket):
+        if name == kv[0] and len(bucket[i]) == 1:
+            return kv,i,0
+        elif name == kv[0] and len(bucket[i]) > 1:
+            for j,kv in enumerate(bucket[i]):
+                print(kv)
+                print(i,j)
+                if name == kv[0]:
+                    return bucket[i][j],i,j
+
 def readFromInputFile(filename):
     with open(filename, 'r') as fh:
         lines = fh.readlines()
         if filename == "inputPS26.txt":
+            for line in lines:
+                processed_array = [input.rstrip(" ").lstrip(" ") for input in line.strip("\n").split("/") if len(input) >0]
+                if len(processed_array) == 4:
+                    msg = insertAppDetails(ApplicationRecords, processed_array[0],processed_array[1],processed_array[2],processed_array[3])
+                    print(msg)
+                else:
+                    print(f"Some record is missing in {line}")
             writeToOutputFile(len(lines))
         elif filename == "promptsPS26.txt":
             print("prompts file")
@@ -45,8 +96,6 @@ def readFromInputFile(filename):
                 elif line.find('appStatus') == 0:
                     print("application status")
                     writeToOutputFile('', "status")
-        for line in lines:
-            print(line.strip("\n").split("/"))
 
 def writeToOutputFile(str,operation="input" ,filename="outputPS26.txt"):
     with open(filename, 'a+') as fh:
@@ -66,4 +115,11 @@ def writeToOutputFile(str,operation="input" ,filename="outputPS26.txt"):
 if __name__ == '__main__':
     ApplicationRecords = initializeHash()
     readFromInputFile('inputPS26.txt')
-    readFromInputFile('promptsPS26.txt')
+    #readFromInputFile('promptsPS26.txt')
+    print(search(ApplicationRecords,"Vinay Shah"))
+    print(search(ApplicationRecords, "Sandhya Raman"))
+    print(search(ApplicationRecords, "Deepak Prasad"))
+    print(search(ApplicationRecords, "Aravind Shetty"))
+    print(search(ApplicationRecords, "Joginder Singh"))
+    print(ApplicationRecords)
+
