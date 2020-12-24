@@ -58,9 +58,9 @@ def updateAppDetails(ApplicationRecords, name, phone, memRef, status):
     if(record[2] != memRef):
         key_changed.append("Member reference")
         bucket[column][2] = memRef
-    if (record[2] != status):
+    if (record[3] != status):
         key_changed.append("Application Status")
-        bucket[column][2] = status
+        bucket[column][3] = status
 
     return key_changed, bucket[column]
 
